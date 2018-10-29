@@ -9,7 +9,7 @@ ATCG should not be loaded directly under RootSchema, rather as a subschema of a 
 Documentation for the ATCG schema may be found here: <a href="">ATCG Documentation</a>
 
 ## Getting Started
-These instructions will get a copy of ATCG up and running on your local machine.
+These instructions will get a copy of ATCG up and running on your local machine. As ATCG is used to generate automatic tests for JADE GUI applications, you will need to set it up for your particular application. Instructions for how to do this can be found in the documentation <a href="">ATCG Documentation</a> and for this you should use the files found in the ATCG folder. Alternatively, if you want to use ATCG with the Erewhon system, the files in the ATCG-Erewhon folder are already set up for Erewhon with an example test included.
 
 ### Prerequisites
 
