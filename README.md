@@ -43,19 +43,42 @@ You will need a schema with a GUI application to make use of ATCG's GUI replayin
 2. For the Repository URL, enter https://github.com/jadesoftwarenz/ATCG
 3. Click on the **Clone** button.
 
-**Step 3: Importing the ATCG schemas into your database**
-1. Select the schema that contains the GUI application, for Erewhon this will be ErewhonInvestmentsViewSchema.
-2. In the **Schema menu**, select the **Load** option.
-3. Tick the **Load Multiple Schemas** option
-4. Select the **ATCG.mul** file in the folder you selected as your working directory.
-5. Click the **OK** button, and the ATCG schemas will be loaded into your Schema Browser ready for use.
+**Step 3: Importing the ATCG Generator Schema into your database**
+
+1. In the **Schema menu**, select the **Load** option.
+2. For the **Schema File Name field**, select the **AtcgGeneratorSchema.scm** file in the folder you selected as your working directory.
+3. Click the **Advanced...** button next to the **Load Style** field
+4. In the **Advanced Load Options** form, enter **AtcgGeneratorSchema** for the **Target Schema** field and **ErewhonInvestmentsViewSchema** for the **Subschema of** field.
+5. Click the **OK** button on both the **Advanced Load Options form** and the **Load Options** form.
+
+> The AtcgGeneratorSchema should load as a subschema of ErewhonInvestmentsViewSchema
+
+**Step 4: Importing the ATCG Generator Schema into your database**
+
+1. In the **Schema menu**, select the **Load** option.
+2. For the **Schema File Name field**, select the **AtcgTestCodeSchema.scm** file in the folder you selected as your working directory.
+3. Click on the **Forms File Name** field, **AtcgTestCodeSchema.ddx** should automatically be entered.
+4. Click the **Advanced...** button next to the **Load Style** field
+5. In the **Advanced Load Options** form, enter **AtcgTestCaseSchema** for the **Target Schema** field and **AtcgGeneratorSchema** for the **Subschema of** field.
+6. Click the **OK** button on both the **Advanced Load Options form** and the **Load Options** form.
+
+> The AtcgGeneratorSchema should load as a subschema of AtcgGeneratorSchema
+
+### Using the ATCG test runner
+From the **Run Application** menu, select the **AtcgControlApp** application.
+
+To run a pre-made test, select ExampleTest in the **Available Replay Classes** listbox and click the **Replay Last** button. The Erewhon  Shop will open and automatically perform a sequence of actions.
+
+To create your own test, click the **Start Recording button** in the **Recording** section. The Erewhon Shop will open and whichever actions you perform will be saved. When you have finished performing actions, enter a name for your test in the **Generated Class Name** field of the **Generate** section and click the **Generate and Load** button.
+
+To replay your created test, select the name of the test you created in the **Replay** section and click the **Replay Last** button.
 
 ## Frequently Asked Questions
 **Q.** Can I contribute to or change these schemas?
 > The schemas contained in this repository are for demonstration purposes and as such are not open to pull requests. However, you are welcome to create a fork and make changes to your own copy, subject to our license ([LICENSE.txt](LICENSE.txt))
 
-**Q.** What can I do with this ATCG system?
-> 
+**Q.** How do I modify ATCG to run on my schema rather than Erewhon?
+> Instructions may be found at <<Documentation>>
 
 ## License
 
