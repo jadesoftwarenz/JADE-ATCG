@@ -75,11 +75,11 @@ To replay your created test, select the name of the test you created in the **Re
 
 ## Frequently Asked Questions
 **Q.** Can I contribute to or change these schemas?
-> The schemas contained in this repository are for demonstration purposes and as such are not open to pull requests. However, you are welcome to create a fork and make changes to your own copy, subject to our license ([LICENSE.txt](LICENSE.txt))
+> The schemas contained in this repository are for demonstration purposes and as such are not open to pull requests. However, you are welcome to create a fork and make changes to your own copy, subject to our license ([LICENSE](LICENSE))
 
 **Q.** How do I modify ATCG to run on my schema rather than Erewhon?
 > Instructions may be found in the <a href="">Documentation</a>.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
