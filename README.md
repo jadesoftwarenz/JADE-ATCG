@@ -24,7 +24,7 @@ Before you can load the schemas, you will need JADE 2018 installed:
 
 ### Choose the application to be tested with ATCG
 
-You will need a schema with a GUI application to make use of ATCG's GUI replaying capability. If you don't have such a schema and you merely wish to see how ATCG works, you may find a suitable demonstration schema at <a href="https://github.com/jadesoftwarenz/Erewhon">Erewhon Repository</a>
+You will need a schema with a GUI application to make use of ATCG's GUI replaying capability. If you don't have such a schema and you merely wish to see how ATCG works, you may find a suitable demonstration schema at <a href="https://github.com/jadesoftwarenz/JADE-Erewhon">Erewhon Repository</a>
 
 ### Loading the schemas using JADE Git Integration
 
@@ -40,7 +40,7 @@ You will need a schema with a GUI application to make use of ATCG's GUI replayin
 
 1. In the **Browse menu**, select **Git Source Control Client** -> **Clone…**  
 (The local path will be filled in for you as the path you selected in Step 1)
-2. For the Repository URL, enter https://github.com/jadesoftwarenz/ATCG
+2. For the Repository URL, enter https://github.com/jadesoftwarenz/JADE-ATCG
 3. Click on the **Clone** button.
 
 **Step 3: Importing the ATCG Generator Schema into your database**
