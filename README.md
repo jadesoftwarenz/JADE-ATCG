@@ -3,10 +3,10 @@ This repository contains JADE's Automated Test Code Generator. It enables you to
 ATCG should not be loaded directly under RootSchema, rather as a subschema of a schema that is to be tested.
 
 ## Documentation Guide
-Documentation for the ATCG schema may be found here: <a href="">ATCG Documentation</a>
+Documentation for the ATCG schema may be found here: <a href="https://www.jadeworld.com/downloads/tech/manuals/2018/ATCGRef.pdf">ATCG Documentation</a>
 
 ## Getting Started
-These instructions will get a copy of ATCG up and running on your local machine. As ATCG is used to generate automatic tests for JADE GUI applications, you will need to set it up for your particular application. Instructions for how to do this can be found in the documentation <a href="">ATCG Documentation</a> and for this you should use the files found in the ATCG folder. Alternatively, if you want to use ATCG with the Erewhon system, the files in the ATCG-Erewhon folder are already set up for Erewhon with an example test included.
+These instructions will get a copy of ATCG up and running on your local machine. As ATCG is used to generate automatic tests for JADE GUI applications, you will need to set it up for your particular application. Instructions for how to do this can be found in the documentation <a href="https://www.jadeworld.com/downloads/tech/manuals/2018/ATCGRef.pdf">ATCG Documentation</a> and for this you should use the files found in the ATCG folder. Alternatively, if you want to use ATCG with the Erewhon system, the files in the ATCG-Erewhon folder are already set up for Erewhon with an example test included.
 
 ### Prerequisites
 
@@ -75,7 +75,7 @@ To replay your created test, select the name of the test you created in the **Re
 > The schemas contained in this repository are for demonstration purposes and as such are not open to pull requests. However, you are welcome to create a fork and make changes to your own copy, subject to our license ([LICENSE](LICENSE))
 
 **Q.** How do I modify ATCG to run on my schema rather than Erewhon?
-> Instructions may be found in the <a href="">Documentation</a>.
+> Instructions may be found in the <a href="https://www.jadeworld.com/downloads/tech/manuals/2018/ATCGRef.pdf">Documentation</a>.
 
 ## License
 
