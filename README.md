@@ -1,6 +1,3 @@
-<a href="https://www.jadeworld.com/solutions-for/dev-partners/"><img src="" title="Jade Software" alt="Jade Software"></a>
-(Will be some kind of JADE banner)
-
 # JADE ATCG Schema
 This repository contains JADE's Automated Test Code Generator. It enables you to record and replay GUI actions in JADE applications, by capturing the execution of GUI event methods and generating code to replay those actions.
 ATCG should not be loaded directly under RootSchema, rather as a subschema of a schema that is to be tested.
