@@ -50,7 +50,7 @@ You will need a schema with a GUI application to make use of ATCG's GUI replayin
 
 > The AtcgGeneratorSchema should load as a subschema of ErewhonInvestmentsViewSchema
 
-**Step 4: Importing the ATCG Generator Schema into your database**
+**Step 4: Importing the ATCG Test Code Schema into your database**
 
 1. In the **Schema menu**, select the **Load** option.
 2. For the **Schema File Name field**, select the **AtcgTestCodeSchema.scm** file in the folder you selected as your working directory.
