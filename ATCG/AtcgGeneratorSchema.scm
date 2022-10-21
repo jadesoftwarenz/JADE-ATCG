@@ -1,4 +1,4 @@
-jadeVersionNumber "18.0.01";
+jadeVersionNumber "18.0.00";
 schemaDefinition
 AtcgGeneratorSchema subschemaOf RootSchema completeDefinition, patchVersion=1114, patchVersioningEnabled = true;
 		setModifiedTimeStamp "<unknown>" "6.2.16" 2017:10:09:16:20:19;
@@ -14,7 +14,7 @@ localeDefinitions
 	5129 "English (New Zealand)" schemaDefaultLocale;
 		setModifiedTimeStamp "<unknown>" "6.2.16" 1114 2017:10:09:16:20:19;
 	1033 "English (United States)" _cloneOf 5129;
-		setModifiedTimeStamp "<unknown>" "" 2019:11:22:15:01:19;
+		setModifiedTimeStamp "<unknown>" "" 2022:11:23:10:48:18;
 libraryDefinitions
 	"jetsupp";
 		setModifiedTimeStamp "<unknown>" "6.2.16" 1114 2017:10:09:16:20:19;
@@ -248,11 +248,11 @@ typeDefinitions
 		atcgIsMethodTrackingEnabled(): Boolean updating, number = 1025;
 		setModifiedTimeStamp "<unknown>" "6.2.16" 1114 2009:11:04:12:02:16.776;
 		atcgLogInfoMessageG(s: String) updating, number = 1017;
-		setModifiedTimeStamp "<unknown>" "6.2.16" 1114 2009:11:04:12:19:49.361;
+		setModifiedTimeStamp "cnwdm6" "18.0.00" 1114 2022:11:25:12:01:41.966;
 		atcgLogMessageDriver(s: String) number = 1014;
 		setModifiedTimeStamp "<unknown>" "6.2.16" 1114 2009:08:27:16:26:21.826;
 		atcgLogMessageG(s: String) updating, number = 1001;
-		setModifiedTimeStamp "<unknown>" "6.2.16" 1114 2009:11:04:12:02:19.276;
+		setModifiedTimeStamp "cnwdm6" "18.0.00" 1114 2022:11:24:15:51:01.205;
 		atcgLogMessageTC(s: String) updating, number = 1034;
 		setModifiedTimeStamp "<unknown>" "6.2.16" 1114 2009:11:05:15:40:18.365;
 		atcgMsgBoxDisplay(
@@ -461,6 +461,8 @@ typeDefinitions
 		setModifiedTimeStamp "<unknown>" "6.2.16" 1112 2009:08:24:15:55:23.250;
 		create() updating, number = 1011;
 		setModifiedTimeStamp "<unknown>" "6.2.16" 103 2009:07:16:15:41:35.207;
+		createFolder() serverExecution, number = 1075;
+		setModifiedTimeStamp "cnwjbl6" "20.0.00" 1114 2022:10:25:13:03:59.050;
 		delete() updating, number = 1012;
 		setModifiedTimeStamp "<unknown>" "6.2.16" 103 2009:07:28:14:57:03.127;
 		findControl(
@@ -825,8 +827,12 @@ typeDefinitions
 		setModifiedTimeStamp "<unknown>" "6.2.16" 101 2009:02:10:17:45:14.505;
 		btnTerminate_click(btn: Button input) updating, number = 1028;
 		setModifiedTimeStamp "<unknown>" "7.0.12" 1114 2018:04:12:14:42:18.776;
+		checkIfVaild(
+			inputStr: String; 
+			validChars: String): Boolean number = 1015;
+		setModifiedTimeStamp "cnwdm6" "18.0.00" 1114 2022:11:24:15:41:29.479;
 		doGen() updating, number = 1004;
-		setModifiedTimeStamp "<unknown>" "7.0.12" 1114 2018:04:12:14:40:13.177;
+		setModifiedTimeStamp "cnwdm6" "18.0.00" 1114 2022:11:25:12:02:23.483;
 		doReplay() updating, number = 1011;
 		setModifiedTimeStamp "<unknown>" "7.0.12" 1114 2018:04:12:16:14:37.281;
 		doStart() updating, number = 1003;
@@ -1600,6 +1606,7 @@ begin
 		atcgMsgLogG.fileName:="rrmsg";
 		atcgMsgLogG.formatOutput:=false;
 		atcgMsgLogG.maxFileSize:=1000000000;
+		atcgMsgLogG.filePath:= atcgMsgLogG.getActualFileName.atcgWithoutFileName&"\ATCG";
 	endif;
 	atcgMsgLogG.info(actualTimeAppServer.atcgLogFormat&" "
 					&name&"/"&getInstanceIdForObject(process).String&": "
@@ -1625,15 +1632,16 @@ atcgLogMessageG(s:String) updating;
 begin
 	if atcgMsgLogG=null then
 		create atcgMsgLogG;
+		
 		atcgMsgLogG.fileName:="rrmsg";
 		atcgMsgLogG.formatOutput:=false;
 		atcgMsgLogG.maxFileSize:=1000000000;
+		atcgMsgLogG.filePath:= atcgMsgLogG.getActualFileName.atcgWithoutFileName&"\ATCG";
 	endif;
 	atcgMsgLogG.log(actualTimeAppServer.atcgLogFormat&" "
 					&name&"/"&getInstanceIdForObject(process).String&": "
 					&s&CrLf);
 end;
-
 }
 
 atcgLogMessageTC
@@ -3019,6 +3027,19 @@ begin
 	endif;
 end;
 
+}
+
+createFolder
+{
+createFolder() serverExecution;
+
+vars
+	folder: FileFolder;
+begin
+	create folder transient; // create the sub folder if needed
+	folder.fileName := self.outFolderName;
+	folder.make();
+end;
 }
 
 delete
@@ -4844,6 +4865,20 @@ begin
 end;
 }
 
+checkIfVaild
+{
+checkIfVaild(inputStr:String; validChars:String): Boolean;
+
+vars
+	i: Integer;
+begin
+    i := 1;
+    inputStr.scanWhile(validChars, i);
+    
+    return i = 0;
+end;
+}
+
 doGen
 {
 doGen() updating;
@@ -4853,6 +4888,7 @@ vars
 	cls:Class;
 	classFile:String;
 	pwf:AtcgPleaseWaitForm;
+	folder:FileFolder;
 begin
 	recordingInProgress:=false;
 	setStatus("Generating...");
@@ -4869,6 +4905,12 @@ begin
 		txtClassName.setFocus;
 		return;
 	endif;
+	if checkIfVaild(txtClassName.text, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_") = false then
+		global.beep;
+		setStatus("Please provide a valid class name. Only letters, numbers, underscore allowed");
+		txtClassName.setFocus;
+		return;
+	endif;
 	
 	if currentSchema.getConstant(txtClassName.text) <> null then
 		global.beep;
@@ -4877,16 +4919,30 @@ begin
 		return;
 	endif;
 	
-	if currentSchema.getClass(txtClassName.text) <> null
-	and app.msgBox("Class "&txtClassName.text&" already exists, do you want to overwrite it?", "Class Already Exists", MsgBox_Question_Mark_Icon + MsgBox_Yes_No) <> MsgBox_Return_Yes then
-		txtClassName.setFocus;
-		return;
-	endif;
-	
 	if txtMethNamePref.text = null then
 		global.beep;
 		setStatus("Please provide a method name prefix");
 		txtMethNamePref.setFocus;
+		return;
+	endif;
+	
+	if txtMethNamePref.text[1] < "a" or txtMethNamePref.text[1] > "z" then
+		global.beep;
+		setStatus("Please start the prefix name with a lower letter");
+		txtMethNamePref.setFocus;
+		return;
+	endif;
+	
+	if checkIfVaild(txtMethNamePref.text, "abcdefghijklmnopqrstuvwxyz0123456789") = false then
+		global.beep;
+		setStatus("Please provide a valid name prefix. Only letters and numbers allowed");
+		txtMethNamePref.setFocus;
+		return;
+	endif;
+	
+	if currentSchema.getClass(txtClassName.text) <> null
+	and app.msgBox("Class "&txtClassName.text&" already exists, do you want to overwrite it?", "Class Already Exists", MsgBox_Question_Mark_Icon + MsgBox_Yes_No) <> MsgBox_Return_Yes then
+		txtClassName.setFocus;
 		return;
 	endif;
 	
@@ -4908,7 +4964,8 @@ begin
 	rr.inFile.fileName:=app.atcgMsgLogG.getActualFileName;
 	rr.className:=txtClassName.text;
 	rr.methodNamePrefix:=txtMethNamePref.text;
-	rr.outFolderName:=rr.inFile.fileName.atcgWithoutFileName&"/";
+	rr.outFolderName:=rr.inFile.fileName.atcgWithoutFileName&"/"&txtClassName.text&"/";
+	rr.createFolder;
 	rr.outFile.fileName:=rr.outFolderName&rr.className&"_"&app.actualTime.time.format("HHmmss")&".cls";
 	app.atcgLogMessageG("generating class file "&rr.outFile.fileName&" from "&rr.inFile.fileName);
 	rr.genJadeVersion:="6.2.15";
@@ -4926,7 +4983,6 @@ begin
 epilog
 	delete rr;
 end;
-
 }
 
 doReplay
