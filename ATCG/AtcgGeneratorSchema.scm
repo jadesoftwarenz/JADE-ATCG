@@ -6,7 +6,7 @@ importedPackageDefinitions
 constantDefinitions
 	categoryDefinition ControllerInformation
 		setModifiedTimeStamp "<unknown>" "6.2.16" 1114 2017:10:09:16:20:19;
-		ControllerVersion:             String = "1.2.1.0";
+		ControllerVersion:             String = "1.3.1.0";
 		setModifiedTimeStamp "<unknown>" "6.2.16" 1114 2009:12:08:12:23:58.800;
 		Schemas_Folder:                String = "u:\SchemaExtracts";
 		setModifiedTimeStamp "<unknown>" "6.2.16" 1114 2009:11:05:17:10:49.915;
@@ -1687,6 +1687,28 @@ begin
 		terminate;
 	endif;
 	
+	if process.isUsingThinClient then
+		if not app.sendMsgWithParams("forceThinClientMethodBroadcast", Form, 			"formMove").Boolean
+		or not app.sendMsgWithParams("forceThinClientMethodBroadcast", OptionButton, "change").Boolean
+		or not app.sendMsgWithParams("forceThinClientMethodBroadcast", CheckBox, 	"change").Boolean
+		or not app.sendMsgWithParams("forceThinClientMethodBroadcast", ComboBox, 	"click").Boolean
+		or not app.sendMsgWithParams("forceThinClientMethodBroadcast", JadeEditMask, "lostFocus").Boolean
+		or not app.sendMsgWithParams("forceThinClientMethodBroadcast", Folder, 		"sheetChg").Boolean
+		or not app.sendMsgWithParams("forceThinClientMethodBroadcast", ListBox, 		"mouseDown").Boolean
+		or not app.sendMsgWithParams("forceThinClientMethodBroadcast", Table, 			"click").Boolean
+		or not app.sendMsgWithParams("forceThinClientMethodBroadcast", Table, 			"rowColumnChg").Boolean
+		or not app.sendMsgWithParams("forceThinClientMethodBroadcast", TextBox, 		"keyUp").Boolean
+		or not app.sendMsgWithParams("forceThinClientMethodBroadcast", TextBox, 		"lostFocus").Boolean
+		or not app.sendMsgWithParams("forceThinClientMethodBroadcast", TextBox, 		"mouseDown").Boolean
+		or not app.sendMsgWithParams("forceThinClientMethodBroadcast", TextBox, 		"mouseUp").Boolean
+		then
+			s:=app.name & " error calling forceThinClientMethodBroadcast so will terminate";
+			app.atcgLogMessageG(s);
+			app.msgBox(s, "Configuration Error", MsgBox_Exclamation_Mark_Icon + MsgBox_OK_Cancel);
+			terminate;
+		endif;
+	endif;
+	
 	foreach proc in Process.instances where proc <> process and proc.persistentApp = process.persistentApp do
 		s:=app.name & " is already running, so this one will terminate";
 		app.atcgLogMessageG(s);
@@ -1825,8 +1847,8 @@ atcgThinClientModeOk():Boolean updating;
 vars
 	s:String;
 begin
-	if process.isUsingThinClient then 
-		s:=app.name & " running as a thinclient which is not supported so will terminate";
+	if process.isUsingThinClient and Application.getMethod("forceThinClientMethodBroadcast") = null then 
+		s:=app.name & " running as a thinclient without app.forceThinClientMethodBroadcast which is not supported so will terminate";
 		app.atcgLogMessageG(s);
 		app.msgBox(s, "Configuration Error", MsgBox_Exclamation_Mark_Icon + MsgBox_OK_Cancel);
 		return false;
@@ -2080,7 +2102,7 @@ begin
 					trackedMethods.add(meth);
 					methodcount:=methodcount+1;
 				endif;
-				//addLogLine(class.name&"::"&meth.name);
+				//app.atcgLogInfoMessageG(class.name&"::"&meth.name);
 				/*if meth.name.atcgContains("click") then
 					addLogLine(class.name&"::"&meth.name);
 				endif;/**/
