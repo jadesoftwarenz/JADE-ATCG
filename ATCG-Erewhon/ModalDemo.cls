@@ -1,7 +1,7 @@
-﻿jadeVersionNumber "99.0.00";
+jadeVersionNumber "99.0.00";
 schemaDefinition
 AtcgTestCodeSchema subschemaOf AtcgGeneratorSchema partialDefinition, patchVersion=110, patchVersioningEnabled = true;
-	setModifiedTimeStamp "cnwta3" "6.2.16" 2017:10:09:16:20:40;
+	setModifiedTimeStamp "JadeLoader" "6.2.15" 2017:10:09:16:20:40;
 typeHeaders
 	ModalDemo subclassOf EDProfile transient, highestOrdinal = 4, number = 2386;
 typeDefinitions
