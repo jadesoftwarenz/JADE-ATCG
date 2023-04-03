@@ -141,6 +141,9 @@ runTest():Integer updating;
 vars
 	sa:StringArray;
 begin
+	shortPause:=100;
+	longPause:=500;
+	
 	create sa transient;
 	sa.add('td002_FSSI_cmbCountry_click');
 	sa.add('td002v_FSSI_cmbCountry_click');
@@ -181,6 +184,7 @@ startup() updating;
 
 begin
 	app.atcgRecordingVersion:='1.2.1.0';
+	app.setProfileString(app.getIniFileName, "ATCG", "TestApp", "ErewhonShop");
 	inheritMethod();
 end;
 }

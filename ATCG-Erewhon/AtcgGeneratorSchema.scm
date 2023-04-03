@@ -955,6 +955,13 @@ typeDefinitions
 		unload = unload of Form;
 		userNotify = userNotify of Form;
 	)
+	FormBase completeDefinition
+	(
+		setModifiedTimeStamp "cnwta3" "99.0.00" 2018:09:07:15:19:53.856;
+	jadeMethodDefinitions
+		showModal(): Integer updating, clientExecution, number = 1013;
+		setModifiedTimeStamp "cnwjhp1" "99.0.00" 1114 2023:01:16:19:01:51.117;
+	)
 	Collection completeDefinition
 	(
 	)
@@ -5524,6 +5531,30 @@ end;
 
 }
 
+	)
+	FormBase (
+	jadeMethodSources
+showModal
+{
+showModal():Integer updating, clientExecution;
+
+vars
+	retCode:Integer;
+begin
+	if currentSchema.name = "JtdDriverSchema"
+	or currentSchema.name = "AtcgTestCodeSchema" then
+		app.setPropertyValue("atcgMyModalForm", self);  // par 105
+		retCode:=app.sendMsg("atcgHandleShowModal").Integer;
+		if retCode = 99999 then
+			return inheritMethod;  // so it works in capture mode
+		else
+			return retCode;
+		endif;
+	endif;
+
+	return inheritMethod;
+end;
+}
 	)
 	Any (
 	jadeMethodSources
