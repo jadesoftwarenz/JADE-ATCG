@@ -40,7 +40,12 @@ You will need a schema with a GUI application to make use of ATCG's GUI replayin
 2. For the Repository URL, enter https://github.com/jadesoftwarenz/JADE-ATCG
 3. Click on the **Clone** button.
 
-**Step 3: Importing the ATCG Generator Schema into your database**
+**Step 3: copying in the ATCG DLL**
+
+1. From the working directory copy the content of **ATCG/bin** to the bin folder of your **jade installation**
+2. If running ATCG from a remote **Thin Client** it may also be required to copy the content of **ATCG/bin** to the **Thin Client bin folder**
+
+**Step 4: Importing the ATCG Generator Schema into your database**
 
 1. In the **Schema menu**, select the **Load** option.
 2. For the **Schema File Name field**, select the **AtcgGeneratorSchema.scm** file in the folder you selected as your working directory.
@@ -50,7 +55,7 @@ You will need a schema with a GUI application to make use of ATCG's GUI replayin
 
 > The AtcgGeneratorSchema should load as a subschema of ErewhonInvestmentsViewSchema
 
-**Step 4: Importing the ATCG Test Code Schema into your database**
+**Step 5: Importing the ATCG Test Code Schema into your database**
 
 1. In the **Schema menu**, select the **Load** option.
 2. For the **Schema File Name field**, select the **AtcgTestCodeSchema.scm** file in the folder you selected as your working directory.
