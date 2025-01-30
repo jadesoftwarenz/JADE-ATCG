@@ -3281,7 +3281,7 @@ begin
 	outFile.writeLine("schemaDefinition");
 	outFile.writeLine(genSchema&" subschemaOf "&genSuperSchema&" partialDefinition;");
 	outFile.writeLine("typeHeaders");
-	outFile.writeLine(Tab&className&" subclassOf "&genSuperClass&" transient;");
+	outFile.writeLine(Tab&className&" subclassOf "&genSuperClass&" transient, transientsOnly;");
 	outFile.writeLine(CrLf&"typeDefinitions"&CrLf&Tab&className&" completeDefinition");
 	outFile.writeLine(Tab&"("&CrLf
 			&Tab&"documentationText"&CrLf&"`"&CrLf
